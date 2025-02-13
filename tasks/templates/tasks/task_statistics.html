@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistiques des Tâches</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 50px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            color: #343a40;
+        }
+        .stat-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .stat-item .icon {
+            font-size: 1.5rem;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Gestion de Tâches</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="{% url 'task_list' %}"><i class="fas fa-tasks"></i> Voir les tâches</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'task_statistics' %}"><i class="fas fa-chart-bar"></i> Statistiques des tâches</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'task_create' %}"><i class="fas fa-plus"></i> Ajouter une nouvelle tâche</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Statistiques des Tâches</h1>
+        <div class="stat-item">
+            <span>Total des tâches : <strong>{% for priority in priority_counts %}{{ priority.total }}{% endfor %}</strong></span>
+            <i class="fas fa-tasks icon"></i>
+        </div>
+        <div class="stat-item">
+            <span>Tâches complétées : <strong>{{ completed_tasks_count }}</strong></span>
+            <i class="fas fa-check icon"></i>
+        </div>
+        <div class="stat-item">
+            <span>Tâches en attente : <strong>{{ pending_tasks_count }}</strong></span>
+            <i class="fas fa-hourglass-start icon"></i>
+        </div>
+        <canvas id="priorityChart"></canvas>
+        <script>
+            const ctx = document.getElementById('priorityChart').getContext('2d');
+            const priorityChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Faible', 'Moyenne', 'Élevée'],
+                    datasets: [{
+                        label: 'Nombre de Tâches',
+                        data: [{% for priority in priority_counts %}{{ priority.total }},{% endfor %}],
+                        backgroundColor: ['#2ecc71', '#f1c40f', '#e74c3c'], // Nouvelles couleurs
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Répartition des tâches par priorité',
+                            font: {
+                                size: 18
+                            }
+                        },
+                        legend: {
+                            display: false // On peut masquer la légende si les labels sont clairs
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true, // Commencer l'axe Y à 0
+                            ticks: {
+                                stepSize: 1  // Afficher uniquement des nombres entiers
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+        <a href="{% url 'home' %}" class="btn btn-secondary mt-4 btn-block">
+            <i class="fas fa-arrow-left"></i> Retour à la page principale
+        </a>
+    </div>
+</body>
+</html>

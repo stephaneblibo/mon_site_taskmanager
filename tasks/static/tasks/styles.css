@@ -1,0 +1,51 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('../tasks/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    padding: 30px;
+    margin-top: 50px;
+    margin-bottom: 150px; /* Augmentation de la marge inférieure */
+}
+
+.navbar, .list-group-item, .card {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.footer {
+    padding: 20px 0;
+    margin-top: 190px; /* Ajout de marge supérieure */
+}
+
+.list-group-item, .card-body, .footer {
+    color: white;
+}
+
+.card-title {
+    color: #fff;
+}
+
+.list-group-item:hover, .card:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.btn-primary, .btn-info, .btn-success {
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+}

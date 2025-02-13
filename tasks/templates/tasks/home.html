@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page d'accueil</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'tasks/styles.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">Gestion de Tâches</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="{% url 'task_list' %}"><i class="fas fa-tasks"></i> Voir les tâches</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'task_statistics' %}"><i class="fas fa-chart-bar"></i> Statistiques des tâches</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'task_create' %}"><i class="fas fa-plus-circle"></i> Ajouter une nouvelle tâche</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <h1 class="text-center">Bienvenue sur l'application de gestion de tâches</h1>
+        <p class="lead text-center">Gérez vos tâches efficacement et accédez à des statistiques détaillées</p>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-tasks"></i> Voir les tâches</h5>
+                        <p class="card-text">Accédez à la liste complète de vos tâches.</p>
+                        <a href="{% url 'task_list' %}" class="btn btn-primary">Voir les tâches</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-chart-bar"></i> Statistiques des tâches</h5>
+                        <p class="card-text">Consultez les statistiques et les rapports sur vos tâches.</p>
+                        <a href="{% url 'task_statistics' %}" class="btn btn-info">Voir les statistiques</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-plus-circle"></i> Ajouter une nouvelle tâche</h5>
+                        <p class="card-text">Créez une nouvelle tâche et suivez son avancement.</p>
+                        <a href="{% url 'task_create' %}" class="btn btn-success">Ajouter une tâche</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer mt-auto py-3">
+        <div class="container text-center">
+            <span class="text-muted">&copy; 2025 Gestion de Tâches. Tous droits réservés.</span>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

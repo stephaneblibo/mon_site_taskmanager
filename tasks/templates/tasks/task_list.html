@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des tâches</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'tasks/styles.css' %}">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Couleur de fond douce */
+        }
+        .container {
+            border-radius: 10px; /* Coins arrondis pour le conteneur */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+            background-color: #ffffff; /* Fond blanc pour le conteneur */
+            padding: 30px;
+        }
+        .list-group-item {
+            transition: all 0.2s ease; /* Transition douce pour les éléments de liste */
+            cursor: pointer; /* Change le curseur pour indiquer que l'élément est cliquable */
+        }
+        .list-group-item:hover {
+            background-color: #f0f0f5; /* Couleur de fond au survol */
+            transform: translateY(-2px); /* Léger déplacement vers le haut au survol */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Ombre plus prononcée au survol */
+        }
+        .navbar {
+            margin-bottom: 20px;
+        }
+        .btn-primary, .btn-success {
+            border-radius: 20px;
+        }
+        .btn-primary i, .btn-success i {
+            margin-right: 5px;
+        }
+        .task-title {
+            font-weight: bold;
+        }
+        .badge {
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Gestion de Tâches</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="{% url 'task_list' %}"><i class="fas fa-tasks"></i> Voir les tâches</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'task_statistics' %}"><i class="fas fa-chart-bar"></i> Statistiques des tâches</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'task_create' %}"><i class="fas fa-plus-circle"></i> Ajouter une nouvelle tâche</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-4 p-4">
+        <h1 class="text-center mb-4">Ma liste de tâches</h1>
+        {% if tasks %}
+            <ul class="list-group">
+                {% for task in tasks %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="{% url 'task_detail' task.pk %}" class="task-title">{{ task.title }}</a>
+                        <span class="badge badge-pill badge-primary float-right">{{ task.completed|yesno:"Complétée,En attente" }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-center">Aucune tâche pour le moment.</p>
+        {% endif %}
+        <a href="{% url 'task_create' %}" class="btn btn-success mt-4 btn-block">
+            <i class="fas fa-plus"></i> Ajouter une nouvelle tâche
+        </a>
+        <a href="{% url 'home' %}" class="btn btn-secondary mt-4 btn-block">
+            <i class="fas fa-arrow-left"></i> Retour à la page principale
+        </a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>
